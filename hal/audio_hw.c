@@ -1690,12 +1690,6 @@ static ssize_t out_write(struct audio_stream_out *stream, const void *buffer,
             ALOGVV("send new gapless metadata");
             compress_set_gapless_metadata(out->compr, &out->gapless_mdata);
             out->send_new_metadata = 0;
-            if (out->send_next_track_params && out->is_compr_metadata_avail) {
-                ALOGD("copl(%p):send next track params in gapless", out);
-                compress_set_next_track_param(out->compr, &(out->compr_config.codec->options));
-                out->send_next_track_params = false;
-                out->is_compr_metadata_avail = false;
-            }
         }
 
         ret = compress_write(out->compr, buffer, bytes);
